@@ -7,20 +7,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* التعديل الجديد للمقاس العريض الموحد */
+        /* ستايل الصور العريضة الموحدة */
         .story-img {
             width: 100%;
-            height: 250px; /* ارتفاع ثابت عشان يديك الشكل العريض */
-            object-fit: cover; /* بيخلي الصورة تملى الفريم من غير ما تتمط */
-            border-radius: 15px 15px 0 0;
+            height: 220px; /* الارتفاع العريض */
+            object-fit: cover; /* عشان الصورة متمطش */
+            border-radius: 12px 12px 0 0;
             display: block;
+            background: #222; /* لون مؤقت لحد ما الصورة تحمل */
         }
         .story-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -48,6 +50,7 @@
     </div>
 
     <script>
+        // الأسامي من سكرين شوت GitHub بتاعك بالظبط
         const photoIds = [
             "12ee8dbafdb34855d88ec82ab043a694", "16d16cfd0d48eef44d1213f0f8a3e439",
             "23c0b2fa3ab6f63cda138e078316b1a8", "32e702df6dd256bf9d15d589b14195c1",
@@ -78,12 +81,14 @@
             const img = document.createElement('img');
             img.className = 'story-img';
             
-            // بيجرب الامتدادات الممكنة
-            const tryJpeg = () => { img.src = id + ".jpeg"; };
-            img.onerror = () => { if (img.src.includes(".jpg")) tryJpeg(); };
-            img.src = id + ".jpg"; 
+            // بيجرب يفتح الصورة بالاسم الصافي الأول، وبعدين بالامتدادات
+            img.onerror = function() {
+                if (this.src.endsWith(".jpeg")) return;
+                this.src = id + ".jpeg"; 
+            };
+            img.src = id; // محاولة بالاسم اللي باين في GitHub
 
-            card.innerHTML += `<p class="story-text" style="padding: 15px; margin: 0;">${messages[index]}</p>`;
+            card.innerHTML += `<p class="story-text" style="padding: 15px; margin: 0; font-size: 0.95rem;">${messages[index]}</p>`;
             card.prepend(img);
             container.appendChild(card);
         });
