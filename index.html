@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maroo Love World</title>
-    <link rel="stylesheet" href="style.css">
+    <title>مرحباً بك - عالم ماروو</title>
+    <style>
+        body {
+            margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: #121212; font-family: 'Cairo', sans-serif; overflow: hidden;
+        }
+        .enter-btn {
+            padding: 20px 50px; font-size: 1.5rem; background: #ff416c; color: white;
+            border: none; border-radius: 50px; cursor: pointer; transition: 0.5s;
+            box-shadow: 0 0 20px rgba(255, 65, 108, 0.5); text-decoration: none;
+        }
+        .enter-btn:hover { transform: scale(1.1); background: #ff4b2b; box-shadow: 0 0 40px #ff416c; }
+    </style>
 </head>
 <body>
-
-    <div class="hearts-container" id="hearts-container"></div>
-
-    <div class="main-card">
-        <div class="profile-img">
-            <img src="your-photo.jpg" alt="Maroo"> </div>
-        <h1>عالم ماروو الرومانسي</h1>
-        <p>مرحباً بك في عالمي الخاص.. حيث تدق الألحان</p>
-        
-        <div class="player-wrapper">
-            <div class="song-info">جاري التشغيل الآن... 🎵</div>
-            <audio id="main-audio" loop>
-                <source src="song1.mp3" type="audio/mpeg">
-            </audio>
-            <button id="play-btn" class="control-btn">دخول العالم ❤️</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <a href="player.html" class="enter-btn">دخول عالم ماروو ❤️</a>
 </body>
 </html>
