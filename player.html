@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="main-container" id="story-container">
+    <div class="main-container" id="dynamic-gallery">
         </div>
 
     <div class="audio-controls">
@@ -31,47 +31,57 @@
     </div>
 
     <script>
-        // لستة بأسماء الملفات اللي عندك على جيت هاب (بدون الامتداد) والوصف بتاعها
-        const photoData = [
-            { id: "12ee8dbafdb34855d88ec82ab043a694", text: "في الملامح دي، بشوف الهدوء اللي بيطمن قلبي." },
-            { id: "16d16cfd0d48eef44d1213f0f8a3e439", text: "كأننا في عالم لوحدنا، مفيش فيه غير صوت أرواحنا." },
-            { id: "23c0b2fa3ab6f63cda138e078316b1a8", text: "كل خطوة سوا بتأكد لي إن المشوار بيكي أجمل." },
-            { id: "32e702df6dd256bf9d15d589b14195c1", text: "في تفاصيلك، بلاقي الأمان اللي كنت بدور عليه." },
-            { id: "343244725c6f6a1c52e2239e0da4084b", text: "إنتي الضحكة اللي بتطلع من القلب، والنور في طريقي." },
-            { id: "78106ee2144a188caa540703a13973d0", text: "بين السطور واللحظات، دايماً إنتي البطلة الوحيدة." },
-            { id: "7b9c90bac1ed97426b342427ba5d9dd5", text: "وجودك جنبي هو السند اللي بيخليني أقوى." },
-            { id: "8c80045687e8a45c9ed348359defe91d", text: "معاكي، حتى السكوت بيبقى له معنى أجمل." },
-            { id: "a18ef28f2287592fdabc2ac4220127fa", text: "إنتي مش بس شريكة طريقي، إنتي كل دنيتي." },
-            { id: "fc3e2ef4c33348dbaeff8796e5a36e59", text: "وعهد عليا، نفضل سوا لآخر العمر في حكاية مابتخلصش." }
+        // إعدادات الوصول للفولدر بتاعك
+        const username = 'maroo2288';
+        const repo = 'Maroo3';
+        const galleryContainer = document.getElementById('dynamic-gallery');
+
+        // جمل وصف عشوائية عميقة عشان تليق على أي صورة
+        const randomTexts = [
+            "في اللحظة دي، كأن العالم كله سكت عشان يحس بينا.",
+            "كل ملامح بيكي هي أمان لقلبي.",
+            "سند وراحة ملهومش حدود في قربك.",
+            "إنتي الضي اللي بينور عتمة أيامي.",
+            "مش مجرد صورة، دي روحين لقوا بعض وسط الزحمة.",
+            "معاكي السكوت بيبقى له طعم الرضا.",
+            "ضحكتك هي النور اللي بيفتح طريقي.",
+            "إنتي الهدية اللي ربنا بعتها ليا."
         ];
 
-        const container = document.getElementById('story-container');
+        async function loadImages() {
+            try {
+                // بنطلب من GitHub يدينا لستة بكل الملفات اللي في المستودع
+                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/`);
+                const files = await response.json();
 
-        photoData.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'story-card';
+                // بنفلتر الملفات عشان ناخد الصور بس (jpg, jpeg, png, gif)
+                const imageFiles = files.filter(file => 
+                    file.name.match(/\.(jpg|jpeg|png|gif)$/i)
+                );
 
-            const img = document.createElement('img');
-            img.className = 'story-img';
-            
-            // مصفوفة الامتدادات المحتملة
-            const exts = ['.jpeg', '.jpg', '.JPG', '.JPEG', '.png'];
-            let currentExtIndex = 0;
+                imageFiles.forEach((file, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'story-card';
 
-            img.onerror = function() {
-                if (currentExtIndex < exts.length) {
-                    this.src = item.id + exts[currentExtIndex];
-                    currentExtIndex++;
-                }
-            };
+                    const img = document.createElement('img');
+                    img.className = 'story-img';
+                    img.src = file.download_url; // بيجيب رابط الصورة المباشر أياً كان اسمها
 
-            // يبدأ بمحاولة تحميل أول امتداد
-            img.src = item.id + exts[0];
+                    const text = document.createElement('p');
+                    text.className = 'story-text';
+                    // بيختار جملة وصف بالترتيب أو عشوائي
+                    text.innerHTML = randomTexts[index % randomTexts.length];
 
-            card.innerHTML = `<p class="story-text">${item.text}</p>`;
-            card.prepend(img);
-            container.appendChild(card);
-        });
+                    card.appendChild(img);
+                    card.appendChild(text);
+                    galleryContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error("خطأ في تحميل الصور:", error);
+            }
+        }
+
+        loadImages();
     </script>
     <script src="script.js"></script>
 </body>
