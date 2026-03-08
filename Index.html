@@ -3,132 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حكايتنا ❤️</title>
+    <title>مكتبتي الموسيقية</title>
     <style>
-        /* CSS عشان الشكل يبقا رايق */
         body {
-            background-color: #1a1a1a;
-            color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+        .player-container {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 300px;
             text-align: center;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
         }
-
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
-            border: 1px solid #ff3366;
+        audio {
+            width: 100%;
+            margin-top: 20px;
         }
-
-        h1 { color: #ff3366; margin-bottom: 10px; }
-        p { font-size: 1.1em; opacity: 0.9; }
-
-        /* العداد */
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 25px 0;
-        }
-
-        .time-box {
-            background: #ff3366;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-
-        .time-box span { display: block; font-size: 0.8em; font-weight: normal; }
-
-        /* القلوب اللي بتطير */
-        .heart {
-            position: fixed;
-            color: #ff3366;
-            font-size: 20px;
-            animation: fly 5s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes fly {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        .footer-msg {
-            margin-top: 30px;
-            font-style: italic;
-            color: #ff3366;
+        .song-title {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #1db954; /* لون أخضر جذاب */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>حكايتنا ❤️</h1>
-        <p>كل لحظة معاكي هي عمر جديد</p>
-        <hr style="border: 0.5px solid #ff3366; width: 50%;">
+    <h2>مشغل الموسيقى الخاص بي</h2>
 
-        <h3>منذ أن بدأت القصة:</h3>
-        
-        <div class="timer-grid">
-            <div class="time-box" id="years">0 <span>سنة</span></div>
-            <div class="time-box" id="months">0 <span>شهر</span></div>
-            <div class="time-box" id="days">0 <span>يوم</span></div>
-            <div class="time-box" id="hours">0 <span>ساعة</span></div>
-            <div class="time-box" id="minutes">0 <span>دقيقة</span></div>
-            <div class="time-box" id="seconds">0 <span>ثانية</span></div>
-        </div>
-
-        <div class="footer-msg">
-            "انتي أجمل نعمة في حياتي.. وعد حبنا ملوش نهاية"
-        </div>
+    <div class="player-container">
+        <div class="song-title">اسم الأغنية هنا</div>
+        <audio controls>
+            <source src="song1.mp3" type="audio/mpeg">
+            متصفحك لا يدعم تشغيل الصوت.
+        </audio>
     </div>
-
-    <script>
-        // التاريخ اللي بدأتوا فيه (غيره براحتك هنا)
-        // السنة، الشهر (بيبدأ من 0 يعني يناير هو 0)، اليوم، الساعة
-        const startDate = new Date(2023, 2, 10, 19, 0, 0); 
-
-        function updateTimer() {
-            const now = new Date();
-            const diff = now - startDate;
-
-            const seconds = Math.floor((diff / 1000) % 60);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24) % 30);
-            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44) % 12);
-            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-
-            document.getElementById('years').childNodes[0].textContent = years + " ";
-            document.getElementById('months').childNodes[0].textContent = months + " ";
-            document.getElementById('days').childNodes[0].textContent = days + " ";
-            document.getElementById('hours').childNodes[0].textContent = hours + " ";
-            document.getElementById('minutes').childNodes[0].textContent = minutes + " ";
-            document.getElementById('seconds').childNodes[0].textContent = seconds + " ";
-        }
-
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        // كود القلوب المتطايرة
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
-        setInterval(createHeart, 300);
-    </script>
 
 </body>
 </html>
