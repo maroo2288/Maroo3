@@ -16,12 +16,12 @@ function createHeart() {
 }
 setInterval(createHeart, 400);
 
-// --- العداد التنازلي (الوقت المتبقي) ---
-const countdownDate = new Date("March 6, 2026 00:00:00").getTime();
+// --- عداد عمر الحكاية (تصاعدي من 6 مارس 2026) ---
+const startDate = new Date("March 6, 2026 00:00:00").getTime();
 
-const x = setInterval(function() {
+setInterval(function() {
     const now = new Date().getTime();
-    const distance = countdownDate - now;
+    const distance = now - startDate; // بنطرح دلوقتي من البداية عشان يعد لـ قدام
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -29,37 +29,27 @@ const x = setInterval(function() {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     // عرض العداد في HTML
-    document.getElementById("days").innerText = days < 10 ? '0' + days : days;
-    document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
-    document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
-    document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
-
-    // لو الوقت خلص
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerText = "وعدنا تحقق اليوم! ❤️";
+    if(document.getElementById("days")) {
+        document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
     }
 }, 1000);
 
 // --- تأثير السكروول الناعم للكروت (ظهور تدريجي) ---
 const cards = document.querySelectorAll('.story-card');
-
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // إيقاف المراقبة بعد الظهور الأول
         }
     });
-}, {
-    threshold: 0.1 // يظهر الكارت لما 10% منه يدخل الشاشة
-});
+}, { threshold: 0.1 });
 
-cards.forEach(card => {
-    observer.observe(card);
-});
+cards.forEach(card => { observer.observe(card); });
 
-// --- التحكم في زرار كتم/تشغيل الصوت ---
+// --- التحكم في الصوت ---
 const audio = document.getElementById('main-audio');
 const playPauseBtn = document.getElementById('play-pause-btn');
 
@@ -67,13 +57,11 @@ if (playPauseBtn && audio) {
     playPauseBtn.addEventListener('click', () => {
         if (audio.muted) {
             audio.muted = false;
-            audio.play(); // محاولة التشغيل لو كان واقف
+            audio.play();
             playPauseBtn.innerText = "كتم الصوت 🔇";
-            playPauseBtn.style.background = "rgba(255, 65, 108, 0.1)";
         } else {
             audio.muted = true;
             playPauseBtn.innerText = "تشغيل الصوت 🔊";
-            playPauseBtn.style.background = "rgba(255, 75, 110, 0.3)";
         }
     });
 }
