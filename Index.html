@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إهداء خاص لـ ريمو</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 75, 43, 0.2);
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            z-index: 10;
+            border: 2px solid #fff;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 { 
+            color: #ff4b2b; 
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        p { 
+            color: #444; 
+            line-height: 1.8; 
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .heart-icon {
+            color: #ff4b2b;
+            font-size: 60px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: beat 0.8s infinite alternate;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        /* قلوب طايرة خلفية */
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 75, 43, 0.4);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="heart-icon">❤️</div>
+        <h1>إلى ريمو..</h1>
+        <p>كل لحظة وانتي معايا هي أجمل هدية. <br> حبيت أعملك حاجة بسيطة تعبر عن اللي جوايا، يا أغلى ريمو في الدنيا.</p>
+        <div style="color: #ff4b2b; font-weight: bold;">بكل الحب.. ماروو</div>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 20 + 10;
+            heart.style.fontSize = size + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
