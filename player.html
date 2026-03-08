@@ -5,94 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حكايتنا - ماروو & ريمو</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
+        :root { --main-color: #ff4d6d; --bg-dark: #0a0a0a; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        
+        /* العداد */
+        .header-timer { background: rgba(255, 255, 255, 0.05); margin: 20px; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid rgba(255, 77, 109, 0.3); }
+        .timer-title { color: var(--main-color); font-size: 1.2rem; margin-bottom: 10px; font-weight: bold; }
+        .timer-numbers { font-size: 1.1rem; }
+
         /* ستايل الصور العريضة الموحدة */
-        .story-img {
-            width: 100%;
-            height: 220px; /* الارتفاع العريض */
-            object-fit: cover; /* عشان الصورة متمطش */
-            border-radius: 12px 12px 0 0;
-            display: block;
-            background: #222; /* لون مؤقت لحد ما الصورة تحمل */
-        }
-        .story-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            margin-bottom: 25px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+        .gallery-container { padding: 15px; max-width: 500px; margin: auto; }
+        .card { background: #1a1a1a; border-radius: 15px; margin-bottom: 25px; overflow: hidden; border: 1px solid #333; }
+        .card-img { width: 100%; height: 230px; object-fit: cover; display: block; }
+        .card-text { padding: 15px; font-size: 0.95rem; text-align: center; color: #ddd; }
+
+        /* مشغل الموسيقى */
+        .music-box { position: fixed; bottom: 20px; right: 20px; background: var(--main-color); padding: 10px 20px; border-radius: 50px; cursor: pointer; z-index: 1000; }
+
+        /* القلوب */
+        .heart { position: fixed; color: var(--main-color); font-size: 20px; user-select: none; pointer-events: none; z-index: 999; animation: fly 4s linear forwards; }
+        @keyframes fly { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <div class="overlay-glow"></div>
-    <div id="hearts-container"></div>
-
-    <div class="countdown-timer">
-        <div class="countdown-title">ده تاريخ اعترافك ليا ❤️</div>
-        <div class="timer-display">
-            <span id="days">00</span><span class="timer-unit">يوم</span>
-            <span id="hours">00</span><span class="timer-unit">ساعة</span>
-            <span id="minutes">00</span><span class="timer-unit">دقيقة</span>
-            <span id="seconds">00</span><span class="timer-unit">ثانية</span>
-        </div>
+    <div class="header-timer">
+        <div class="timer-title">ده تاريخ اعترافك ليا ❤️</div>
+        <div class="timer-numbers" id="timer">تحميل العداد...</div>
     </div>
 
-    <div class="main-container" id="story-gallery">
-        </div>
+    <div class="gallery-container">
+        <div class="card"><img src="12ee8dbafdb34855d88ec82ab043a694.jpeg" class="card-img" onerror="this.src='12ee8dbafdb34855d88ec82ab043a694'"><p class="card-text">في الملامح دي، بشوف الهدوء اللي بيطمن قلبي.</p></div>
+        <div class="card"><img src="16d16cfd0d48eef44d1213f0f8a3e439.jpeg" class="card-img" onerror="this.src='16d16cfd0d48eef44d1213f0f8a3e439'"><p class="card-text">كأننا في عالم لوحدنا، مفيش فيه غير صوت أرواحنا.</p></div>
+        <div class="card"><img src="23c0b2fa3ab6f63cda138e078316b1a8.jpeg" class="card-img" onerror="this.src='23c0b2fa3ab6f63cda138e078316b1a8'"><p class="card-text">كل خطوة سوا بتأكد لي إن المشوار بيكي أجمل.</p></div>
+        <div class="card"><img src="32e702df6dd256bf9d15d589b14195c1.jpeg" class="card-img" onerror="this.src='32e702df6dd256bf9d15d589b14195c1'"><p class="card-text">في تفاصيلك، بلاقي الأمان اللي كنت بدور عليه.</p></div>
+        <div class="card"><img src="343244725c6f6a1c52e2239e0da4084b.jpeg" class="card-img" onerror="this.src='343244725c6f6a1c52e2239e0da4084b'"><p class="card-text">إنتي الضحكة اللي بتطلع من القلب، والنور في طريقي.</p></div>
+        <div class="card"><img src="78106ee2144a188caa540703a13973d0.jpeg" class="card-img" onerror="this.src='78106ee2144a188caa540703a13973d0'"><p class="card-text">بين السطور واللحظات، دايماً إنتي البطلة الوحيدة.</p></div>
+        <div class="card"><img src="7b9c90bac1ed97426b342427ba5d9dd5.jpeg" class="card-img" onerror="this.src='7b9c90bac1ed97426b342427ba5d9dd5'"><p class="card-text">وجودك جنبي هو السند اللي بيخليني أقوى.</p></div>
+        <div class="card"><img src="8c80045687e8a45c9ed348359defe91d.jpeg" class="card-img" onerror="this.src='8c80045687e8a45c9ed348359defe91d'"><p class="card-text">معاكي، حتى السكوت بيبقى له معنى أجمل.</p></div>
+        <div class="card"><img src="a18ef28f2287592fdabc2ac4220127fa.jpeg" class="card-img" onerror="this.src='a18ef28f2287592fdabc2ac4220127fa'"><p class="card-text">إنتي مش بس شريكة طريقي، إنتي كل دنيتي.</p></div>
+        <div class="card"><img src="fc3e2ef4c33348dbaeff8796e5a36e59.jpeg" class="card-img" onerror="this.src='fc3e2ef4c33348dbaeff8796e5a36e59'"><p class="card-text">وعهد عليا نفضل سوا لآخر العمر.</p></div>
+    </div>
 
-    <div class="audio-controls">
-        <audio id="main-audio" loop><source src="song1.mp3" type="audio/mpeg"></audio>
-        <button id="play-pause-btn" class="control-btn">كتم الصوت 🔇</button>
+    <div class="music-box" onclick="toggleMusic()">
+        <span id="music-status">تشغيل الموسيقى 🎵</span>
+        <audio id="bg-audio" loop src="song1.mp3"></audio>
     </div>
 
     <script>
-        // الأسامي من سكرين شوت GitHub بتاعك بالظبط
-        const photoIds = [
-            "12ee8dbafdb34855d88ec82ab043a694", "16d16cfd0d48eef44d1213f0f8a3e439",
-            "23c0b2fa3ab6f63cda138e078316b1a8", "32e702df6dd256bf9d15d589b14195c1",
-            "343244725c6f6a1c52e2239e0da4084b", "78106ee2144a188caa540703a13973d0",
-            "7b9c90bac1ed97426b342427ba5d9dd5", "8c80045687e8a45c9ed348359defe91d",
-            "a18ef28f2287592fdabc2ac4220127fa", "fc3e2ef4c33348dbaeff8796e5a36e59"
-        ];
+        function updateTimer() {
+            const startDate = new Date("March 6, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById("timer").innerHTML = `${days} يوم و ${hours} ساعة و ${mins} دقيقة و ${secs} ثانية`;
+        }
+        setInterval(updateTimer, 1000);
 
-        const messages = [
-            "في الملامح دي، بشوف الهدوء اللي بيطمن قلبي.",
-            "كأننا في عالم لوحدنا، مفيش فيه غير صوت أرواحنا.",
-            "كل خطوة سوا بتأكد لي إن المشوار بيكي أجمل.",
-            "في تفاصيلك، بلاقي الأمان اللي كنت بدور عليه.",
-            "إنتي الضحكة اللي بتطلع من القلب، والنور في طريقي.",
-            "بين السطور واللحظات، دايماً إنتي البطلة الوحيدة.",
-            "وجودك جنبي هو السند اللي بيخليني أقوى.",
-            "معاكي، حتى السكوت بيبقى له معنى أجمل.",
-            "إنتي مش بس شريكة طريقي، إنتي كل دنيتي.",
-            "وعد عليا نفضل سوا لآخر العمر."
-        ];
+        function toggleMusic() {
+            const audio = document.getElementById("bg-audio");
+            const btn = document.getElementById("music-status");
+            if (audio.paused) { audio.play(); btn.innerHTML = "إيقاف الموسيقى ⏸️"; }
+            else { audio.pause(); btn.innerHTML = "تشغيل الموسيقى 🎵"; }
+        }
 
-        const container = document.getElementById('story-gallery');
-
-        photoIds.forEach((id, index) => {
-            const card = document.createElement('div');
-            card.className = 'story-card';
-
-            const img = document.createElement('img');
-            img.className = 'story-img';
-            
-            // بيجرب يفتح الصورة بالاسم الصافي الأول، وبعدين بالامتدادات
-            img.onerror = function() {
-                if (this.src.endsWith(".jpeg")) return;
-                this.src = id + ".jpeg"; 
-            };
-            img.src = id; // محاولة بالاسم اللي باين في GitHub
-
-            card.innerHTML += `<p class="story-text" style="padding: 15px; margin: 0; font-size: 0.95rem;">${messages[index]}</p>`;
-            card.prepend(img);
-            container.appendChild(card);
-        });
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }, 500);
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
