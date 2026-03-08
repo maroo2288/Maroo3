@@ -1,4 +1,4 @@
-// قلوب متطايرة
+// 1. قلوب متطايرة
 function createHeart() {
     const container = document.getElementById('hearts-container');
     if (!container) return;
@@ -14,7 +14,7 @@ function createHeart() {
 }
 setInterval(createHeart, 400);
 
-// العداد التصاعدي من 6 مارس
+// 2. العداد التصاعدي من 6 مارس
 const startDate = new Date("March 6, 2026 00:00:00").getTime();
 setInterval(() => {
     const distance = new Date().getTime() - startDate;
@@ -24,7 +24,22 @@ setInterval(() => {
     document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
 }, 1000);
 
-// التحكم في الموسيقى والسكروول
+// 3. حل نهائي لمشكلة امتداد الصور
+document.querySelectorAll('.story-img').forEach(img => {
+    const baseName = img.getAttribute('data-src');
+    const extensions = ['.JPG', '.jpg', '.png', '.jpeg'];
+    let index = 0;
+    function tryNext() {
+        if (index < extensions.length) {
+            img.src = baseName + extensions[index];
+            index++;
+        }
+    }
+    img.onerror = tryNext;
+    tryNext();
+});
+
+// 4. التحكم في الموسيقى والسكروول
 const audio = document.getElementById('main-audio');
 const btn = document.getElementById('play-pause-btn');
 
