@@ -3,40 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وعدنا - ماروو & ريمو</title>
+    <title>حكايتنا - ماروو & ريمو</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { margin: 0; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
-        .overlay-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 20, 147, 0.1) 0%, transparent 70%); pointer-events: none; z-index: 1; animation: glowPulse 5s infinite alternate; }
-        @keyframes glowPulse { 0% { opacity: 0.3; } 100% { opacity: 0.7; } }
-        #hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
-        .heart { position: absolute; color: rgba(255, 65, 108, 0.4); animation: moveHeart linear infinite; }
-        @keyframes moveHeart { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-10vh) scale(1.3); opacity: 0; } }
-
-        /* ستايل العداد العائم */
-        .countdown-timer { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px 30px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 1000; text-align: center; }
-        .countdown-title { font-size: 0.9rem; color: #ffb6c1; margin-bottom: 5px; opacity: 0.8; }
-        .timer-display { font-size: 1.5rem; font-weight: 700; color: white; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-        .timer-unit { font-size: 0.7rem; color: rgba(255, 255, 255, 0.7); margin: 0 3px; }
-
-        /* ستايل حاوي المحتوى الرئيسي والسكروول */
-        .main-container { padding-top: 120px; padding-bottom: 50px; display: flex; flex-direction: column; align-items: center; gap: 40px; }
-
-        /* ستايل كروت الصور والوصف (زي الفيديو) */
-        .story-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.05); padding: 30px; width: 85%; max-width: 400px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); transition: 0.4s; opacity: 0; transform: translateY(30px); }
-        .story-card.visible { opacity: 1; transform: translateY(0); }
-        .story-img { width: 100%; border-radius: 15px; margin-bottom: 20px; border: 2px solid rgba(255, 255, 255, 0.1); }
-        .story-text { font-size: 1.3rem; color: white; line-height: 1.7; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        .highlight-text { color: #ff4b6e; font-weight: 700; }
-
-        /* ستايل زرار التحكم في الصوت */
-        .audio-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1001; }
-        .control-btn { background: rgba(255, 65, 108, 0.1); color: #ff4b6e; border: 2px solid #ff4b6e; padding: 10px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(255, 75, 110, 0.2); }
-        .control-btn:hover { background: #ff4b6e; color: white; box-shadow: 0 0 25px rgba(255, 75, 110, 0.6); }
-
-        /* تأثير السكروول الناعم */
-        html { scroll-behavior: smooth; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload="startEverything()">
 
@@ -44,8 +13,8 @@
     <div id="hearts-container"></div>
 
     <div class="countdown-timer">
-        <div class="countdown-title">الوقت المتبقي لوعدنا يا ريمو ❤️</div>
-        <div class="timer-display" id="timer">
+        <div class="countdown-title">بقالنا مع بعض يا ريمو ❤️</div>
+        <div class="timer-display">
             <span id="days">00</span><span class="timer-unit">يوم</span>
             <span id="hours">00</span><span class="timer-unit">ساعة</span>
             <span id="minutes">00</span><span class="timer-unit">دقيقة</span>
@@ -54,56 +23,20 @@
     </div>
 
     <div class="main-container">
-
-        <div class="story-card">
-            <img src="image_42.png" alt="وصف الصورة 1" class="story-img">
-            <p class="story-text">في كل مرة <span class="highlight-text">بعانقك</span> فيها، بحس إن العالم كله سكت، وإن مفيش غير نبض قلبك اللي بيتكلم.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_43.png" alt="وصف الصورة 2" class="story-img">
-            <p class="story-text">على الرصيف ده، بدأت حكايتنا <span class="highlight-text">بقبلة</span> سرقت خطفت قلبي، ووعدت نفسي إني هفضل معاكي لآخر العمر.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_44.png" alt="وصف الصورة 3" class="story-img">
-            <p class="story-text">لما ببص للنجوم، بشوف لمعة <span class="highlight-text">عينيكي</span>، وبدعي ربنا إن وجودك في حياتي يفضل منور دنيتي للأبد.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_45.png" alt="وصف الصورة 4" class="story-img">
-            <p class="story-text">حتى في لحظات سكوتك، قلبي بيسمع صوتك. أنا معاكي، وهفضل جنبك <span class="highlight-text">سند</span> في كل وقت.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_46.png" alt="وصف الصورة 5" class="story-img">
-            <p class="story-text">كل نقطة مطر بتنزل، بتفكرني بـ <span class="highlight-text">حبك</span> اللي غرق قلبي، وبخليني أتمنى إننا نفضل نتمشى تحت المطر سوا للأبد.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_47.png" alt="وصف الصورة 6" class="story-img">
-            <p class="story-text">إنتي الزهرة الوحيدة اللي منورة وسط حقل حياتي، وجودك <span class="highlight-text">بيخلي</span> الدنيا لونها وردي.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_48.png" alt="وصف الصورة 7" class="story-img">
-            <p class="story-text">في النظرة دي، بشوف <span class="highlight-text">مستقبلنا</span> سوا، وبشوف إن القدر اختارلي أحلى نعمة.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_49.png" alt="وصف الصورة 8" class="story-img">
-            <p class="story-text">لو الكون كله كان ضدي، وجودك جنبي تحت سقف واحد هو <span class="highlight-text">الانتصار</span> الحقيقي ليا.</p>
-        </div>
-
-        <div class="story-card">
-            <img src="image_50.png" alt="وصف الصورة 9" class="story-img">
-            <p class="story-text">في عناقك، بلقى <span class="highlight-text">الأمان</span> اللي بدور عليه طول حياتي، بموت فيكي يا أغلى ريمو.</p>
-        </div>
-
+        <div class="story-card"><img src="1000274434.jpg" class="story-img"><p class="story-text">في كل مرة <span class="highlight-text">بعانقك</span> فيها، بحس إن العالم كله سكت.</p></div>
+        <div class="story-card"><img src="1000274429.jpg" class="story-img"><p class="story-text">على الرصيف ده، بدأت حكايتنا <span class="highlight-text">بقبلة</span> خطفت قلبي.</p></div>
+        <div class="story-card"><img src="1000274417.jpg" class="story-img"><p class="story-text">بشوف لمعة <span class="highlight-text">عينيكي</span> في كل نجمة في السماء.</p></div>
+        <div class="story-card"><img src="1000274418.jpg" class="story-img"><p class="story-text">حتى وإحنا بعيد، قلبي دايماً <span class="highlight-text">بيسمعك</span>.</p></div>
+        <div class="story-card"><img src="1000274430.jpg" class="story-img"><p class="story-text">كل نقطة مطر بتفكرني بـ <span class="highlight-text">حبك</span> اللي غرق قلبي.</p></div>
+        <div class="story-card"><img src="1000274426.jpg" class="story-img"><p class="story-text">إنتي الزهرة الوحيدة اللي منورة وسط حقل حياتي.</p></div>
+        <div class="story-card"><img src="1000274431.jpg" class="story-img"><p class="story-text">في النظرة دي، بشوف <span class="highlight-text">مستقبلنا</span> الجميل سوا.</p></div>
+        <div class="story-card"><img src="1000274424.jpg" class="story-img"><p class="story-text">وجودك جنبي هو <span class="highlight-text">الانتصار</span> الحقيقي ليا في الدنيا.</p></div>
+        <div class="story-card"><img src="1000274425.jpg" class="story-img"><p class="story-text">بموت فيكي يا أغلى <span class="highlight-text">ريمو</span> في الكون كله.</p></div>
     </div>
 
     <div class="audio-controls">
-        <audio id="main-audio" loop muted> <source src="song1.mp3" type="audio/mpeg">
+        <audio id="main-audio" loop muted>
+            <source src="song1.mp3" type="audio/mpeg">
         </audio>
         <button id="play-pause-btn" class="control-btn">تشغيل الصوت 🔊</button>
     </div>
