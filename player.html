@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="main-container" id="image-container">
+    <div class="main-container" id="story-container">
         </div>
 
     <div class="audio-controls">
@@ -31,8 +31,8 @@
     </div>
 
     <script>
-        // لستة بأسماء الملفات والوصف بتاعها
-        const stories = [
+        // لستة بأسماء الملفات اللي عندك على جيت هاب (بدون الامتداد) والوصف بتاعها
+        const photoData = [
             { id: "12ee8dbafdb34855d88ec82ab043a694", text: "في الملامح دي، بشوف الهدوء اللي بيطمن قلبي." },
             { id: "16d16cfd0d48eef44d1213f0f8a3e439", text: "كأننا في عالم لوحدنا، مفيش فيه غير صوت أرواحنا." },
             { id: "23c0b2fa3ab6f63cda138e078316b1a8", text: "كل خطوة سوا بتأكد لي إن المشوار بيكي أجمل." },
@@ -45,29 +45,30 @@
             { id: "fc3e2ef4c33348dbaeff8796e5a36e59", text: "وعهد عليا، نفضل سوا لآخر العمر في حكاية مابتخلصش." }
         ];
 
-        const container = document.getElementById('image-container');
+        const container = document.getElementById('story-container');
 
-        stories.forEach(story => {
+        photoData.forEach(item => {
             const card = document.createElement('div');
             card.className = 'story-card';
-            
+
             const img = document.createElement('img');
             img.className = 'story-img';
             
-            // محاولة تحميل الصورة بكل الامتدادات الممكنة
-            const extensions = ['.jpg', '.jpeg', '.JPG', '.JPEG'];
-            let extIndex = 0;
+            // مصفوفة الامتدادات المحتملة
+            const exts = ['.jpeg', '.jpg', '.JPG', '.JPEG', '.png'];
+            let currentExtIndex = 0;
 
             img.onerror = function() {
-                if (extIndex < extensions.length) {
-                    this.src = story.id + extensions[extIndex];
-                    extIndex++;
+                if (currentExtIndex < exts.length) {
+                    this.src = item.id + exts[currentExtIndex];
+                    currentExtIndex++;
                 }
             };
 
-            img.src = story.id + extensions[0]; // ابدأ بأول محاولة
+            // يبدأ بمحاولة تحميل أول امتداد
+            img.src = item.id + exts[0];
 
-            card.innerHTML = `<p class="story-text">${story.text}</p>`;
+            card.innerHTML = `<p class="story-text">${item.text}</p>`;
             card.prepend(img);
             container.appendChild(card);
         });
