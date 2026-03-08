@@ -6,6 +6,23 @@
     <title>حكايتنا - ماروو & ريمو</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* التعديل الجديد للمقاس العريض الموحد */
+        .story-img {
+            width: 100%;
+            height: 250px; /* ارتفاع ثابت عشان يديك الشكل العريض */
+            object-fit: cover; /* بيخلي الصورة تملى الفريم من غير ما تتمط */
+            border-radius: 15px 15px 0 0;
+            display: block;
+        }
+        .story-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 <body>
 
@@ -22,7 +39,7 @@
         </div>
     </div>
 
-    <div class="main-container" id="dynamic-gallery">
+    <div class="main-container" id="story-gallery">
         </div>
 
     <div class="audio-controls">
@@ -31,57 +48,45 @@
     </div>
 
     <script>
-        // إعدادات الوصول للفولدر بتاعك
-        const username = 'maroo2288';
-        const repo = 'Maroo3';
-        const galleryContainer = document.getElementById('dynamic-gallery');
-
-        // جمل وصف عشوائية عميقة عشان تليق على أي صورة
-        const randomTexts = [
-            "في اللحظة دي، كأن العالم كله سكت عشان يحس بينا.",
-            "كل ملامح بيكي هي أمان لقلبي.",
-            "سند وراحة ملهومش حدود في قربك.",
-            "إنتي الضي اللي بينور عتمة أيامي.",
-            "مش مجرد صورة، دي روحين لقوا بعض وسط الزحمة.",
-            "معاكي السكوت بيبقى له طعم الرضا.",
-            "ضحكتك هي النور اللي بيفتح طريقي.",
-            "إنتي الهدية اللي ربنا بعتها ليا."
+        const photoIds = [
+            "12ee8dbafdb34855d88ec82ab043a694", "16d16cfd0d48eef44d1213f0f8a3e439",
+            "23c0b2fa3ab6f63cda138e078316b1a8", "32e702df6dd256bf9d15d589b14195c1",
+            "343244725c6f6a1c52e2239e0da4084b", "78106ee2144a188caa540703a13973d0",
+            "7b9c90bac1ed97426b342427ba5d9dd5", "8c80045687e8a45c9ed348359defe91d",
+            "a18ef28f2287592fdabc2ac4220127fa", "fc3e2ef4c33348dbaeff8796e5a36e59"
         ];
 
-        async function loadImages() {
-            try {
-                // بنطلب من GitHub يدينا لستة بكل الملفات اللي في المستودع
-                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/`);
-                const files = await response.json();
+        const messages = [
+            "في الملامح دي، بشوف الهدوء اللي بيطمن قلبي.",
+            "كأننا في عالم لوحدنا، مفيش فيه غير صوت أرواحنا.",
+            "كل خطوة سوا بتأكد لي إن المشوار بيكي أجمل.",
+            "في تفاصيلك، بلاقي الأمان اللي كنت بدور عليه.",
+            "إنتي الضحكة اللي بتطلع من القلب، والنور في طريقي.",
+            "بين السطور واللحظات، دايماً إنتي البطلة الوحيدة.",
+            "وجودك جنبي هو السند اللي بيخليني أقوى.",
+            "معاكي، حتى السكوت بيبقى له معنى أجمل.",
+            "إنتي مش بس شريكة طريقي، إنتي كل دنيتي.",
+            "وعد عليا نفضل سوا لآخر العمر."
+        ];
 
-                // بنفلتر الملفات عشان ناخد الصور بس (jpg, jpeg, png, gif)
-                const imageFiles = files.filter(file => 
-                    file.name.match(/\.(jpg|jpeg|png|gif)$/i)
-                );
+        const container = document.getElementById('story-gallery');
 
-                imageFiles.forEach((file, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'story-card';
+        photoIds.forEach((id, index) => {
+            const card = document.createElement('div');
+            card.className = 'story-card';
 
-                    const img = document.createElement('img');
-                    img.className = 'story-img';
-                    img.src = file.download_url; // بيجيب رابط الصورة المباشر أياً كان اسمها
+            const img = document.createElement('img');
+            img.className = 'story-img';
+            
+            // بيجرب الامتدادات الممكنة
+            const tryJpeg = () => { img.src = id + ".jpeg"; };
+            img.onerror = () => { if (img.src.includes(".jpg")) tryJpeg(); };
+            img.src = id + ".jpg"; 
 
-                    const text = document.createElement('p');
-                    text.className = 'story-text';
-                    // بيختار جملة وصف بالترتيب أو عشوائي
-                    text.innerHTML = randomTexts[index % randomTexts.length];
-
-                    card.appendChild(img);
-                    card.appendChild(text);
-                    galleryContainer.appendChild(card);
-                });
-            } catch (error) {
-                console.error("خطأ في تحميل الصور:", error);
-            }
-        }
-
-        loadImages();
+            card.innerHTML += `<p class="story-text" style="padding: 15px; margin: 0;">${messages[index]}</p>`;
+            card.prepend(img);
+            container.appendChild(card);
+        });
     </script>
     <script src="script.js"></script>
 </body>
