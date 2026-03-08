@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عالم الموسيقى - ماروو</title>
+    <title>Our Love Story - Maroo</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body onload="startEverything()">
 
+    <div class="neon-bg-light"></div>
     <div class="hearts-container" id="hearts-container"></div>
 
-    <div class="main-card">
-        <div class="profile-img">
-            <img src="me.jpg" alt="Maroo"> </div>
-        <h1>أهلاً بك في عالمي</h1>
-        <p>استمتع باللحن الخاص..</p>
-        
-        <audio id="main-audio" loop autoplay>
-            <source src="song1.mp3" type="audio/mpeg">
-        </audio>
+    <div class="glass-card">
+        <div class="content-wrapper">
+            <h1 class="main-title">مصطفى & حبيبه</h1>
+            
+            <p class="sub-title">✨ Our Eternal Love Story</p>
+            
+            <div id="dynamic-content" class="dynamic-box">
+                <p class="waiting-text">في انتظار صورك وكلماتك الجميلة لتكتمل القصة... ❤️</p>
+            </div>
+
+            <div class="audio-controls">
+                <audio id="main-audio" loop autoplay>
+                    <source src="song1.mp3" type="audio/mpeg">
+                </audio>
+                <button id="play-pause-btn" class="control-btn">كتم الصوت 🔇</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        function startEverything() {
-            const audio = document.getElementById('main-audio');
-            audio.play().catch(() => {
-                console.log("المتصفح منع التشغيل التلقائي، جاري المحاولة مرة أخرى عند التفاعل.");
-            });
-        }
-    </script>
 </body>
 </html>
