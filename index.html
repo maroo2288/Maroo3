@@ -3,27 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دخول - عالم ماروو & ريمو</title>
+    <title>حكايتنا - ماروو & ريمو</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a0a0a; font-family: 'Cairo', sans-serif; overflow: hidden; }
-        .enter-card { text-align: center; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 50px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        h1 { color: white; margin-bottom: 30px; text-shadow: 0 0 10px rgba(255, 75, 110, 0.5); }
-        .enter-btn { background: #ff4b6e; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: 0.3s; box-shadow: 0 0 20px rgba(255, 75, 110, 0.4); }
-        .enter-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 75, 110, 0.8); }
+        /* المقاس العريض الموحد */
+        .story-img {
+            width: 100%;
+            height: 240px; 
+            object-fit: cover;
+            display: block;
+            background: #1a1a1a;
+        }
+        .story-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
-    <div class="enter-card">
-        <h1>مستعدة تشوفي حكايتنا؟ ❤️</h1>
-        <button class="enter-btn" id="enter-btn">دخول لعالمنا</button>
+
+    <div class="overlay-glow"></div>
+    <div id="hearts-container"></div>
+
+    <div class="countdown-timer">
+        <div class="countdown-title">ده تاريخ اعترافك ليا ❤️</div>
+        <div class="timer-display">
+            <span id="days">00</span><span class="timer-unit">يوم</span>
+            <span id="hours">00</span><span class="timer-unit">ساعة</span>
+            <span id="minutes">00</span><span class="timer-unit">دقيقة</span>
+            <span id="seconds">00</span><span class="timer-unit">ثانية</span>
+        </div>
+    </div>
+
+    <div class="main-container" id="story-gallery">
+        </div>
+
+    <div class="audio-controls">
+        <audio id="main-audio" loop><source src="song1.mp3" type="audio/mpeg"></audio>
+        <button id="play-pause-btn" class="control-btn">كتم الصوت 🔇</button>
     </div>
 
     <script>
-        document.getElementById('enter-btn').addEventListener('click', function() {
-            localStorage.setItem('playMusic', 'true');
-            window.location.href = 'player.html'; 
+        // الأسامي من سكرين شوت جيت هاب بتاعك بالظبط
+        const photoNames = [
+            "12ee8dbafdb34855d88ec82ab043a694",
+            "16d16cfd0d48eef44d1213f0f8a3e439",
+            "23c0b2fa3ab6f63cda138e078316b1a8",
+            "32e702df6dd256bf9d15d589b14195c1",
+            "343244725c6f6a1c52e2239e0da4084b",
+            "78106ee2144a188caa540703a13973d0",
+            "7b9c90bac1ed97426b342427ba5d9dd5",
+            "8c80045687e8a45c9ed348359defe91d",
+            "a18ef28f2287592fdabc2ac4220127fa",
+            "fc3e2ef4c33348dbaeff8796e5a36e59"
+        ];
+
+        const messages = [
+            "في الملامح دي، بشوف الهدوء اللي بيطمن قلبي.",
+            "كأننا في عالم لوحدنا، مفيش فيه غير صوت أرواحنا.",
+            "كل خطوة سوا بتأكد لي إن المشوار بيكي أجمل.",
+            "في تفاصيلك، بلاقي الأمان اللي كنت بدور عليه.",
+            "إنتي الضحكة اللي بتطلع من القلب، والنور في طريقي.",
+            "بين السطور واللحظات، دايماً إنتي البطلة الوحيدة.",
+            "وجودك جنبي هو السند اللي بيخليني أقوى.",
+            "معاكي، حتى السكوت بيبقى له معنى أجمل.",
+            "إنتي مش بس شريكة طريقي، إنتي كل دنيتي.",
+            "وعد عليا نفضل سوا لآخر العمر."
+        ];
+
+        const gallery = document.getElementById('story-gallery');
+
+        photoNames.forEach((name, index) => {
+            const card = document.createElement('div');
+            card.className = 'story-card';
+            
+            // هنا بنجبر المتصفح يعرف إن ده ملف صورة حتى لو ملوش امتداد
+            card.innerHTML = `
+                <img src="${name}" class="story-img" type="image/jpeg">
+                <p class="story-text" style="padding: 15px; margin: 0;">${messages[index]}</p>
+            `;
+            gallery.appendChild(card);
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
