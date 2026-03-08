@@ -1,138 +1,19 @@
-/* تنسيق أساسي للصفحة */
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* خلفية متدرجة غامقة جداً تميل للأحمر الأسود */
-    background: radial-gradient(circle at center, #1a0206 0%, #000000 100%);
-    font-family: 'Cairo', sans-serif;
-    overflow: hidden;
-    color: white;
-}
+body { margin: 0; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
+.overlay-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255, 20, 147, 0.1) 0%, transparent 70%); pointer-events: none; z-index: 1; }
+#hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.heart { position: absolute; animation: moveHeart linear infinite; opacity: 0.6; }
+@keyframes moveHeart { 0% { transform: translateY(100vh); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
 
-/* تأثير النيون الخلفي الخافت */
-.neon-bg-light {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(255, 65, 108, 0.15) 0%, transparent 70%);
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: 1;
-    pointer-events: none;
-    animation: neonPulse 6s infinite alternate;
-}
+.countdown-timer { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 15px 25px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; text-align: center; width: 80%; max-width: 400px; }
+.timer-display { font-size: 1.2rem; font-weight: bold; }
+.timer-unit { font-size: 0.7rem; margin: 0 5px; color: #ffb6c1; }
 
-@keyframes neonPulse {
-    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-}
+.main-container { padding: 120px 0 50px 0; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+.story-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border-radius: 20px; padding: 20px; width: 85%; max-width: 400px; border: 1px solid rgba(255,255,255,0.05); opacity: 0; transform: translateY(30px); transition: 0.8s; }
+.story-card.visible { opacity: 1; transform: translateY(0); }
+.story-img { width: 100%; border-radius: 15px; }
+.story-text { font-size: 1.1rem; line-height: 1.6; margin-top: 15px; }
+.highlight-text { color: #ff4b6e; font-weight: bold; }
 
-/* تصميم الكارت الزجاجي - Glassmorphism (نفس شكل الصورة) */
-.glass-card {
-    background: rgba(255, 255, 255, 0.03); /* أبيض شفاف جداً */
-    backdrop-filter: blur(25px); /* تأثير التغبيش */
-    -webkit-backdrop-filter: blur(25px);
-    border-radius: 40px; /* زوايا منحنية قوي */
-    border: 1px solid rgba(255, 255, 255, 0.08); /* حد خارجي خفيف جداً */
-    padding: 60px 40px;
-    width: 85%;
-    max-width: 450px;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-    /* توهج خارجي خفيف */
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
-                0 0 20px rgba(255, 65, 108, 0.1);
-    transition: 0.3s;
-}
-
-/* تأثير بسيط عند تمرير الماوس */
-.glass-card:hover {
-    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7), 
-                0 0 40px rgba(255, 65, 108, 0.2);
-    transform: translateY(-5px);
-}
-
-/* تنسيق العناوين */
-.main-title {
-    font-size: 2.8rem;
-    margin: 0 0 10px 0;
-    color: white;
-    font-weight: 700;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-}
-
-.sub-title {
-    font-size: 1.1rem;
-    color: #ffb6c1; /* وردي خفيف */
-    margin: 0 0 40px 0;
-    opacity: 0.8;
-    letter-spacing: 1px;
-}
-
-/* تنسيق المساحة الديناميكية (للصور والكلمات لاحقاً) */
-.dynamic-box {
-    margin-bottom: 50px;
-}
-
-.story-img {
-    width: 100%;
-    max-width: 200px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.story-text {
-    font-size: 1.4rem;
-    color: white;
-    line-height: 1.7;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-.waiting-text {
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
-}
-
-/* تنسيق زرار التحكم */
-.control-btn {
-    background: rgba(255, 65, 108, 0.1); /* خلفية زرار شفافة */
-    color: #ff4b6e;
-    border: 2px solid #ff4b6e; /* حدود نيون */
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 1rem;
-    box-shadow: 0 0 15px rgba(255, 75, 110, 0.2);
-}
-
-.control-btn:hover {
-    background: #ff4b6e;
-    color: white;
-    box-shadow: 0 0 25px rgba(255, 75, 110, 0.6);
-}
-
-/* تأثير حركة القلوب (تأكد إنه في script.js أيضاً) */
-.heart {
-    position: absolute;
-    color: rgba(255, 65, 108, 0.4);
-    pointer-events: none;
-    z-index: 2;
-    animation: moveHeart linear infinite;
-}
-
-@keyframes moveHeart {
-    0% { transform: translateY(100vh) scale(0); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
-}
+.audio-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+.control-btn { background: rgba(255, 75, 110, 0.2); color: white; border: 1px solid #ff4b6e; padding: 10px 20px; border-radius: 50px; cursor: pointer; }
