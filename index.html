@@ -3,47 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبتي الموسيقية</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px;
-        }
-        .player-container {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 300px;
-            text-align: center;
-        }
-        audio {
-            width: 100%;
-            margin-top: 20px;
-        }
-        .song-title {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            color: #1db954; /* لون أخضر جذاب */
-        }
-    </style>
+    <title>Maroo Love World</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h2>مشغل الموسيقى الخاص بي</h2>
+    <div class="hearts-container" id="hearts-container"></div>
 
-    <div class="player-container">
-        <div class="song-title">اسم الأغنية هنا</div>
-        <audio controls>
-            <source src="song1.mp3" type="audio/mpeg">
-            متصفحك لا يدعم تشغيل الصوت.
-        </audio>
+    <div class="main-card">
+        <div class="profile-img">
+            <img src="your-photo.jpg" alt="Maroo"> </div>
+        <h1>عالم ماروو الرومانسي</h1>
+        <p>مرحباً بك في عالمي الخاص.. حيث تدق الألحان</p>
+        
+        <div class="player-wrapper">
+            <div class="song-info">جاري التشغيل الآن... 🎵</div>
+            <audio id="main-audio" loop>
+                <source src="music.mp3" type="audio/mpeg">
+            </audio>
+            <button id="play-btn" class="control-btn">دخول العالم ❤️</button>
+        </div>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
