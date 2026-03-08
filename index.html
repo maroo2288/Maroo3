@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مرحباً بك - عالم ماروو</title>
+    <title>دخول - عالم ماروو & ريمو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
-            background: #121212; font-family: 'Cairo', sans-serif; overflow: hidden;
-        }
-        .enter-btn {
-            padding: 20px 50px; font-size: 1.5rem; background: #ff416c; color: white;
-            border: none; border-radius: 50px; cursor: pointer; transition: 0.5s;
-            box-shadow: 0 0 20px rgba(255, 65, 108, 0.5); text-decoration: none;
-        }
-        .enter-btn:hover { transform: scale(1.1); background: #ff4b2b; box-shadow: 0 0 40px #ff416c; }
+        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a0a0a; font-family: 'Cairo', sans-serif; overflow: hidden; }
+        .enter-card { text-align: center; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 50px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        h1 { color: white; margin-bottom: 30px; text-shadow: 0 0 10px rgba(255, 75, 110, 0.5); }
+        .enter-btn { background: #ff4b6e; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: 0.3s; box-shadow: 0 0 20px rgba(255, 75, 110, 0.4); }
+        .enter-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 75, 110, 0.8); }
     </style>
 </head>
 <body>
-    <a href="player.html" class="enter-btn">دخول عالم ماروو ❤️</a>
+    <div class="enter-card">
+        <h1>مستعدة تشوفي حكايتنا؟ ❤️</h1>
+        <button class="enter-btn" id="enter-btn">دخول لعالمنا</button>
+    </div>
+
+    <script>
+        document.getElementById('enter-btn').addEventListener('click', function() {
+            localStorage.setItem('playMusic', 'true');
+            window.location.href = 'player.html'; 
+        });
+    </script>
 </body>
 </html>
